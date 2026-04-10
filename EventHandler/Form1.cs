@@ -29,14 +29,11 @@ namespace EventHandler
             {
                 score++;
                 scoreLabel.Text = "Очки: " + score.ToString();
-                // objects.Remove(t);
-                // var newTarget = new Target(rand.Next() % pbMain.Width, rand.Next() % pbMain.Height, 0);
-                // objects.Add(newTarget);
                 t.X = rand.Next() % pbMain.Width;
-                t.Y = rand.Next() % pbMain.Width;
-                t.timeToCatch = 10;
+                t.Y = rand.Next() % pbMain.Height;
+                t.timeToCatch = 5;
             };
-            
+
             objects.Add(new Target(rand.Next() % pbMain.Width, rand.Next() % pbMain.Height, 0));
             objects.Add(new Target(rand.Next() % pbMain.Width, rand.Next() % pbMain.Height, 0));
 
@@ -47,8 +44,11 @@ namespace EventHandler
                     Target target = (Target)obj;
                     target.TimeIsUp += (t) =>
                     {
-                        objects.Remove(t);
-                        objects.Add(new Target(rand.Next() % pbMain.Width, rand.Next() % pbMain.Height, 0));
+                        // objects.Remove(t);
+                        // objects.Add(new Target(rand.Next() % pbMain.Width, rand.Next() % pbMain.Height, 0));
+                        t.X = rand.Next() % pbMain.Width;
+                        t.Y = rand.Next() % pbMain.Height;
+                        t.timeToCatch = 5;
                     };
                 }
             }

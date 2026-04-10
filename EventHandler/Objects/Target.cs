@@ -7,7 +7,7 @@ namespace EventHandler.Objects
 {
     internal class Target : BaseObject
     {
-        public int timeToCatch = 10;
+        public int timeToCatch = 5;
         public Action<Target> TimeIsUp;
         public Target(float x, float y, float angle) : base(x, y, angle)
         {
