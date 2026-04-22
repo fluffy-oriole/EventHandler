@@ -33,7 +33,6 @@
             timer1 = new System.Windows.Forms.Timer(components);
             txtLog = new RichTextBox();
             scoreLabel = new Label();
-            timer2 = new System.Windows.Forms.Timer(components);
             ((System.ComponentModel.ISupportInitialize)pbMain).BeginInit();
             SuspendLayout();
             // 
@@ -50,7 +49,7 @@
             // timer1
             // 
             timer1.Enabled = true;
-            timer1.Interval = 30;
+            timer1.Interval = 20;
             timer1.Tick += timer1_Tick;
             // 
             // txtLog
@@ -69,12 +68,6 @@
             scoreLabel.Size = new Size(74, 25);
             scoreLabel.TabIndex = 2;
             scoreLabel.Text = "Очки: 0";
-            // 
-            // timer2
-            // 
-            timer2.Enabled = true;
-            timer2.Interval = 1000;
-            timer2.Tick += timer2_Tick;
             // 
             // Form1
             // 
@@ -97,6 +90,5 @@
         private System.Windows.Forms.Timer timer1;
         private RichTextBox txtLog;
         private Label scoreLabel;
-        private System.Windows.Forms.Timer timer2;
     }
 }

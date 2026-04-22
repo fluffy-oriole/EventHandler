@@ -29,29 +29,12 @@ namespace EventHandler
             {
                 score++;
                 scoreLabel.Text = "Очки: " + score.ToString();
-                t.X = rand.Next() % pbMain.Width;
-                t.Y = rand.Next() % pbMain.Height;
-                t.timeToCatch = 5;
+                objects.Remove(t);
+                CreateAndLinkTarget();
             };
 
-            objects.Add(new Target(rand.Next() % pbMain.Width, rand.Next() % pbMain.Height, 0));
-            objects.Add(new Target(rand.Next() % pbMain.Width, rand.Next() % pbMain.Height, 0));
-
-            foreach (var obj in objects.ToList())
-            {
-                if (obj is Target)
-                {
-                    Target target = (Target)obj;
-                    target.TimeIsUp += (t) =>
-                    {
-                        // objects.Remove(t);
-                        // objects.Add(new Target(rand.Next() % pbMain.Width, rand.Next() % pbMain.Height, 0));
-                        t.X = rand.Next() % pbMain.Width;
-                        t.Y = rand.Next() % pbMain.Height;
-                        t.timeToCatch = 5;
-                    };
-                }
-            }
+            CreateAndLinkTarget();
+            CreateAndLinkTarget();
 
             marker = new Marker(50, 100, 0);
             objects.Add(marker);
@@ -62,6 +45,7 @@ namespace EventHandler
         {
             var g = e.Graphics;
             g.Clear(Color.White);
+
             foreach (var obj in objects.ToList())
             {
                 if (obj != player && player.OverLabs(obj, g))
@@ -115,16 +99,15 @@ namespace EventHandler
             marker.Y = e.Y;
         }
 
-        private void timer2_Tick(object sender, EventArgs e)
+        private void CreateAndLinkTarget()
         {
-            foreach(var obj in objects.ToList())
+            Target newTarget = new Target(rand.Next() % pbMain.Width, rand.Next() % pbMain.Height, 0);
+            objects.Add(newTarget);
+            newTarget.TimeIsUp += (t) =>
             {
-                if (obj is Target)
-                {
-                    Target target = (Target)obj;
-                    target.UpdateTimeToCath(target);
-                }
-            }
+                objects.Remove(t);
+                CreateAndLinkTarget();
+            };
         }
     }
 }

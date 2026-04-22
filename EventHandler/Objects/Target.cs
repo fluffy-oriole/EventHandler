@@ -8,6 +8,7 @@ namespace EventHandler.Objects
     internal class Target : BaseObject
     {
         public int timeToCatch = 5;
+        public int timerLoopsCount = 0;
         public Action<Target> TimeIsUp;
         public Target(float x, float y, float angle) : base(x, y, angle)
         {
@@ -23,6 +24,16 @@ namespace EventHandler.Objects
                 new SolidBrush(Color.Green),
                 20, 20
             );
+            timerLoopsCount++;
+            if (timerLoopsCount == 50)
+            {
+                timerLoopsCount = 0;
+                timeToCatch -= 1;
+            }
+            if (timeToCatch == 0)
+            {
+                TimeIsUp(this);
+            }
         }
 
         public override GraphicsPath GetGraphicsPath()
@@ -30,15 +41,6 @@ namespace EventHandler.Objects
             var path = base.GetGraphicsPath();
             path.AddEllipse(-25, -25, 50, 50);
             return path;
-        }
-
-        public void UpdateTimeToCath(BaseObject obj)
-        {
-            timeToCatch--;
-            if (timeToCatch == 0)
-            {
-                TimeIsUp(obj as Target);
-            }
         }
     }
 }
